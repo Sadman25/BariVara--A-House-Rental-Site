@@ -1,0 +1,30 @@
+{% extends 'base_homepage.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for advertisement in advertisements %}
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="{{advertisement.cover_photo.url}}" alt="">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{advertisement.product_name}}</h5>
+                    <p class="card-text">
+                        House Area: {{advertisement.area}}<br>
+                        House Size: {{advertisement.size}} Square Feet<br>
+                        Rent: {{advertisement.rent}} TK<br>
+                    </p>
+
+                    <a href="{% url 'advertisementDetails' advertisement.pk %}" class="btn btn-outline-primary btn-sm">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

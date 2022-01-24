@@ -7,6 +7,7 @@ urlpatterns = [
     path('createAdvertisement',views.createAdvertisement, name='createAdvertisement'),
     path('advertisementDetails/<int:pk>/',views.advertisementDetails, name='advertisementDetails'),
     path('myAdvertisements',views.myAdvertisements,name='myAdvertisements'),
+    path('searchByArea',views.searchByArea,name='searchByArea'),
 
     path('myProfile/<int:pk>/',views.myProfile, name='myProfile'),
     

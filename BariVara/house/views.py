@@ -6,13 +6,13 @@ from accounts.models import profile
 from accounts.forms import userRegistration,profileRegistration
 # Create your views here.
 
-
+@login_required(login_url='loginPage')
 def homePage(request):
     advertisements = advertisement.objects.all().order_by('-id') #Latest products will be shown at 1st
     context = {'advertisements':advertisements}
     return render (request, 'homepage.html',context)
 
-
+@login_required(login_url='loginPage')
 def createAdvertisement(request):
     newAdvertisement = advertisementForm()
     additionalImages= imageForm()
@@ -39,7 +39,7 @@ def createAdvertisement(request):
         'additionalImages':additionalImages }
         return render (request, 'create_advertisement.html',context)
 
-
+@login_required(login_url='loginPage')
 def advertisementDetails(request,pk):
     advertisement_details = advertisement.objects.get(id=pk)  #Contains information of a particular product
     advertisement_images = image.objects.filter(advertisement=advertisement.objects.get(id=pk)) #Contains information of a particular product's images
@@ -49,14 +49,23 @@ def advertisementDetails(request,pk):
     }
     return render (request,'advertisement_details.html',context)
 
-
+@login_required(login_url='loginPage')
 def myAdvertisements(request):
     advertisements = advertisement.objects.all().order_by('-id')
     context = {'advertisements':advertisements}
     return render (request, 'my_advertisements.html',context)
 
+@login_required(login_url='loginPage')
+def searchByArea(request):
+    query = request.GET.get('query')
+    if query:
+        advertisements = advertisement.objects.filter(area__area__icontains=query)
+        context = {'advertisements':advertisements}
+        return render(request,'search.html',context)
+    else:
+        return redirect('homePage')
 
-
+@login_required(login_url='loginPage')
 def myProfile(request,pk):
 
     previousInfo = profile.objects.get(id=pk)
