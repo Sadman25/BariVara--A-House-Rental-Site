@@ -36,3 +36,12 @@ def createAdvertisement(request):
         context = {'newAdvertisement':newAdvertisement,
         'additionalImages':additionalImages }
         return render (request, 'create_advertisement.html',context)
+
+def advertisementDetails(request,pk):
+    advertisement_details = advertisement.objects.get(id=pk)  #Contains information of a particular product
+    advertisement_images = image.objects.filter(advertisement=advertisement.objects.get(id=pk)) #Contains information of a particular product's images
+    
+    context = {'advertisement_details':advertisement_details,
+    'advertisement_images':advertisement_images,
+    }
+    return render (request,'advertisement_details.html',context)
