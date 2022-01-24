@@ -6,9 +6,11 @@ from .forms import advertisementForm, imageForm
 
 @login_required(login_url='loginPage')
 def homePage(request):
-    return render (request, 'homepage.html')
+    advertisements = advertisement.objects.all().order_by('-id') #Latest products will be shown at 1st
+    context = {'advertisements':advertisements}
+    return render (request, 'homepage.html',context)
 
-
+@login_required(login_url='loginPage')
 def createAdvertisement(request):
     newAdvertisement = advertisementForm()
     additionalImages= imageForm()

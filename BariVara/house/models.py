@@ -19,12 +19,15 @@ class advertisement(models.Model):
     owner= models.ForeignKey(User,on_delete=models.CASCADE)
     phone_number=models.CharField(max_length=11)
 
+    def __str__(self) -> str:
+        return 'Location: '+self.area.area + ' Owner: '+ self.owner.username + ' Number '+ self.phone
+
 class image(models.Model):
     advertisement= models.ForeignKey(advertisement,on_delete=models.CASCADE)
     image= models.ImageField(blank=False, null=False)
 
     def __str__(self):
-        return self.advertisement.house_owner
+        return self.advertisement.owner.username
 
 class comment(models.Model):
     advertisement= models.ForeignKey(advertisement,on_delete=models.CASCADE)
