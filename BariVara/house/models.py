@@ -17,6 +17,7 @@ class advertisement(models.Model):
     rent=models.PositiveIntegerField()
     size=models.PositiveIntegerField()
     owner= models.ForeignKey(User,on_delete=models.CASCADE)
+    cover_photo= models.ImageField(blank=False, null=False)
     phone_number=models.CharField(max_length=11)
 
     def __str__(self) -> str:

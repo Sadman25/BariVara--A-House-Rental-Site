@@ -8,7 +8,7 @@ from .models import advertisement, image, comment
 class advertisementForm(forms.ModelForm):
     class Meta:
         model = advertisement
-        fields = ['rent','size','bedroom','bathroom','area','address','phone_number']
+        fields = ['rent','size','bedroom','bathroom','area','address','phone_number','cover_photo']
 
 class imageForm(forms.ModelForm):
     class Meta:
