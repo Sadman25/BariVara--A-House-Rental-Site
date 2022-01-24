@@ -1,0 +1,23 @@
+#profile {
+    margin-top: 2% ;
+    background-color:#383E44 ;
+    color: white;
+}
+#profile h3{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-align: center;
+}
+
+#profile label{
+    color: white;
+}
+
+#profile ul li{
+    color: white;
+}
+
+#profile button{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}

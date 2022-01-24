@@ -1,4 +1,4 @@
-#product {
+#advertisement {
     margin-top: 2%;
     background-color: #383E44;
     color: white;
@@ -11,5 +11,6 @@
 }
 
 #advertisement button{
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }

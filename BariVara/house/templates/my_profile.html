@@ -1,0 +1,29 @@
+{% extends 'base_homepage.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container" id="profile">
+    <div class="row">
+        <div class="col-lg-5" id="profile_info">
+            <h3>Current Profile Information </h3>
+            <p>User Name: {{ previousInfo.user.username }}<br>
+                User Email: {{ previousInfo.user.email }}
+            </p>
+            <img src="{{previousInfo.profile_picture.url}}" class="rounded float-left" alt="..." width="70%"
+                height="auto">
+        </div>
+        <div class="col-lg-7" id="profile_form">
+            <h3>Edit your profile </h3>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ editUser | crispy }}
+                {{ editProfile | crispy }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

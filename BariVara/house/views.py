@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import advertisement,image,comment
 from .forms import advertisementForm, imageForm
+from accounts.models import profile
+from accounts.forms import userRegistration,profileRegistration
 # Create your views here.
 
 @login_required(login_url='loginPage')
@@ -45,3 +47,25 @@ def advertisementDetails(request,pk):
     'advertisement_images':advertisement_images,
     }
     return render (request,'advertisement_details.html',context)
+
+
+@login_required(login_url='loginPage')
+def myProfile(request,pk):
+
+    previousInfo = profile.objects.get(id=pk)
+    editUser = userRegistration(instance=request.user)
+    editProfile = profileRegistration(instance=previousInfo)
+
+    if request.method == 'POST':
+        editUser = userRegistration(request.POST,instance=userRegistration(instance=request.user))
+        editProfile = profileRegistration(request.POST,request.FILES,instance=previousInfo)
+        if editUser.is_valid() and editProfile.is_valid():
+            editUser.save()
+            editProfile.save()
+            return redirect('/')
+    
+    else:
+        context = {'previousInfo':previousInfo,
+        'editUser':editUser,
+        'editProfile':editProfile}
+        return render (request, 'my_profile.html',context)   
