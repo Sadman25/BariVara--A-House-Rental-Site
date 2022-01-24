@@ -8,11 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/productDetails.css' %}">
-    <link rel="stylesheet" href="{% static 'css/createAuction.css' %}">
-    <link rel="stylesheet" href="{% static 'css/myposts.css' %}">
-    <link rel="stylesheet" href="{% static 'css/myprofile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/createAdvertisement.css' %}">
+    <link rel="stylesheet" href="{% static 'css/myAdvertisements.css' %}">
     <style>
         body {
             background-color: rgb(219, 226, 226);
@@ -37,7 +34,7 @@
                     <a class="nav-link" href="{% url 'homePage' %}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Create Advertisements </a>
+                    <a class="nav-link" href="{% url 'createAdvertisement' %}">Create Advertisements </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">My Advertisements </a>
@@ -58,6 +55,10 @@
                     </div>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0" method="GET" action="#">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
     </nav>
     {% block content%}

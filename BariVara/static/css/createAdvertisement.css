@@ -1,0 +1,19 @@
+#createAdvertisement {
+    margin-top: 5%;
+    background-color: #383E44 ;
+    color: white;
+}
+
+#createAdvertisement h3{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-align: center;
+}
+
+#createAdvertisement button{
+    margin-bottom: 2%;
+    
+}
+#createAdvertisement label{
+    color: white;
+}
