@@ -1,0 +1,31 @@
+{% extends 'base_homepage.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th scope="col">Area</th>
+                <th scope="col">Rent</th>
+                <th scope="col">Size</th>
+                <th scope="col">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for advertisement in advertisements %}
+            {% if advertisement.owner == user %}
+            <tr>
+                <th scope="row">{{advertisement.area}}</th>
+                <td>{{advertisement.rent}}</td>
+                <td>{{advertisement.size}}</td>
+                <td><a href="{% url 'advertisementDetails' advertisement.pk %}" class="btn btn-primary">View Details</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
