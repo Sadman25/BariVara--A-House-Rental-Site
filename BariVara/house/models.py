@@ -22,6 +22,9 @@ class advertisement(models.Model):
 
     def __str__(self) -> str:
         return 'Location: '+self.area.area + ' Owner: '+ self.owner.username + ' Number '+ self.phone
+    
+    def get_absolute_url(self):
+        return reverse('advertisementDetails', kwargs={'pk':self.id})
 
 class image(models.Model):
     advertisement= models.ForeignKey(advertisement,on_delete=models.CASCADE)
@@ -33,6 +36,6 @@ class image(models.Model):
 class comment(models.Model):
     advertisement= models.ForeignKey(advertisement,on_delete=models.CASCADE)
     user= models.ForeignKey(User,on_delete= models.CASCADE)
-    reply = models.ForeignKey('Comment' , null=True , related_name = "replies" , on_delete = models.CASCADE)
-    comment= models.TextField(max_length=2000)
+    reply = models.ForeignKey('comment' , null=True , related_name = "replies" , on_delete = models.CASCADE)
+    comment= models.TextField(max_length=5000,null=True,blank=True)
     time = models.DateTimeField(auto_now_add=True,null=False)

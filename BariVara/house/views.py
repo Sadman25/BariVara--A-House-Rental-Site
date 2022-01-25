@@ -1,7 +1,7 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import advertisement,image,comment
-from .forms import advertisementForm, imageForm
+from .forms import advertisementForm, imageForm, commentForm
 from accounts.models import profile
 from accounts.forms import userRegistration,profileRegistration
 # Create your views here.
@@ -44,10 +44,27 @@ def advertisementDetails(request,pk):
     advertisement_details = advertisement.objects.get(id=pk)  #Contains information of a particular product
     advertisement_images = image.objects.filter(advertisement=advertisement.objects.get(id=pk)) #Contains information of a particular product's images
     
-    context = {'advertisement_details':advertisement_details,
-    'advertisement_images':advertisement_images,
-    }
-    return render (request,'advertisement_details.html',context)
+    new_comment = commentForm()
+
+    if request.method == 'POST':
+        new_comment = commentForm(request.POST or None)
+        if new_comment.is_valid():
+            new_comment = request.POST.get('comment')
+            reply_id = request.POST.get('id_comment')
+            comment_qs = None
+            if reply_id:
+                comment_qs = comment.objects(id = reply_id)
+            print(new_comment)
+            Comment = comment.objects.create(advertisement=advertisement_details ,user=request.user,comment=new_comment,reply=comment_qs)
+            Comment.save()
+            return HttpResponseRedirect(advertisement_details.get_absolute_url())
+
+    else:
+        context = {'advertisement_details':advertisement_details,
+        'advertisement_images':advertisement_images,
+        'new_comment':new_comment,
+        }
+        return render (request,'advertisement_details.html',context)
 
 @login_required(login_url='loginPage')
 def myAdvertisements(request):

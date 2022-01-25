@@ -46,6 +46,12 @@
             {% endif %}            
         </div>
     </div>
+    <form action="" , method="POST">
+        {%csrf_token%}
+        <h3>Please leave a Comment </h3>
+        {{new_comment|crispy}}
+        <button type="submit" id="review_button" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
 </div>
