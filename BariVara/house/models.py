@@ -21,7 +21,7 @@ class advertisement(models.Model):
     phone_number=models.CharField(max_length=11)
 
     def __str__(self) -> str:
-        return 'Location: '+self.area.area + ' Owner: '+ self.owner.username + ' Number '+ self.phone
+        return 'Location: '+self.area.area + ' Owner: '+ self.owner.username + ' Number '+ self.phone_number
     
     def get_absolute_url(self):
         return reverse('advertisementDetails', kwargs={'pk':self.id})

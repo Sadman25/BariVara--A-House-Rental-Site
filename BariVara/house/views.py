@@ -45,15 +45,16 @@ def advertisementDetails(request,pk):
     advertisement_images = image.objects.filter(advertisement=advertisement.objects.get(id=pk)) #Contains information of a particular product's images
     
     new_comment = commentForm()
-
+    comments = comment.objects.filter(advertisement=advertisement.objects.get(id=pk),reply=None)
     if request.method == 'POST':
         new_comment = commentForm(request.POST or None)
         if new_comment.is_valid():
             new_comment = request.POST.get('comment')
-            reply_id = request.POST.get('id_comment')
+            reply_id = request.POST.get('comment_id')
+            print(reply_id)
             comment_qs = None
             if reply_id:
-                comment_qs = comment.objects(id = reply_id)
+                comment_qs = comment.objects.get(id = reply_id)
             print(new_comment)
             Comment = comment.objects.create(advertisement=advertisement_details ,user=request.user,comment=new_comment,reply=comment_qs)
             Comment.save()
@@ -63,6 +64,7 @@ def advertisementDetails(request,pk):
         context = {'advertisement_details':advertisement_details,
         'advertisement_images':advertisement_images,
         'new_comment':new_comment,
+        'comments':comments,
         }
         return render (request,'advertisement_details.html',context)
 

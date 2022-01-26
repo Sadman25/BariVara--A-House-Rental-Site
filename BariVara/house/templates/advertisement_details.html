@@ -43,7 +43,7 @@
             </p>
             {% if advertisement_details.owner == user %}
             <a class="btn btn-primary" href="#" role="button">Edit</a>
-            {% endif %}            
+            {% endif %}
         </div>
     </div>
     <form action="" , method="POST">
@@ -52,6 +52,35 @@
         {{new_comment|crispy}}
         <button type="submit" id="review_button" class="btn btn-primary">Submit</button>
     </form>
+    {{ comments.count }} Comment{{ comments|pluralize }}
+    {% for comment in comments %}
+    <blockquote class="blockquote">
+        <p class="mb-0">{{ comment.comment }}</p>
+        <footer class="blockquote-footer">Commented by <cite title="Source Title">{{ comment.user|capfirst }} at {{ reply.time }}</cite>        </footer>
+    </blockquote>
+
+    <div class="replied-comments container mt-2">
+        {% for reply in comment.replies.all %}
+        <blockquote class="blockquote">
+            <p class="mb-0">{{ reply.comment }}</p>
+            <footer class="blockquote-footer">replied by 
+                <cite title="Source Title">{{ reply.user|capfirst }} at {{ reply.time }}
+                </cite>
+            </footer>
+        </blockquote>
+        {% endfor %}
+        <div class="form-group row">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                {{ new_comment.as_p}}
+                <button type="submit" id="review_button" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    {% endfor %}
+
 </div>
 
 </div>
