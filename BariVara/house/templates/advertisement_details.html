@@ -42,7 +42,7 @@
                 <b>Contact Number: </b>{{ advertisement_details.phone_number }}<br><br>
             </p>
             {% if advertisement_details.owner == user %}
-            <a class="btn btn-primary" href="#" role="button">Edit</a>
+            <a class="btn btn-primary" href="{% url 'advertisementEdit' advertisement_details.pk %}" role="button">Edit</a>
             {% endif %}
         </div>
     </div>
@@ -83,6 +83,5 @@
 
 </div>
 
-</div>
 
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base_homepage.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" id="createAdvertisement">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3><b>Instructions</b></h3>
+            <p><b>Rent: </b>Please provide rent in TK</p> 
+            <p><b>Size: </b>Please provide your house size in Square Feet</p>
+            <p><b>Bedroom: </b>Please provide the number of bedrooms in the house</p> 
+            <p><b>Bedroom: </b>Please provide the number of bathrooms in the house</p> 
+            <p><b>Area: </b>Select the area where the house is situated in</p> 
+            <p><b>Address: </b>Please provide the exact location of the house(house number, block number, road number and more)</p> 
+            <p><b>Phone Number: </b>Please enter your phone number for contact</p> 
+            <p><b>Cover Photo:</b> Choose a suitable cover photo for your advertisement</p>
+        </div>
+        <div class="col-lg-6">
+            <h3><b>Advertisement Edit Form</b></h3>
+            <form method='POST' action="{% url 'advertisementEdit' advertisement_details.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if advertisement_details.owner == user %}
+                {{ editAdvertisement|crispy}}
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

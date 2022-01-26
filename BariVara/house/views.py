@@ -69,6 +69,22 @@ def advertisementDetails(request,pk):
         return render (request,'advertisement_details.html',context)
 
 @login_required(login_url='loginPage')
+def advertisementEdit(request,pk):
+    advertisement_details = advertisement.objects.get(id=pk)
+    editAdvertisement = advertisementForm(instance=advertisement_details) #Form will contain previous information
+
+    if request.method == 'POST':
+        editAdvertisement = advertisementForm(request.POST,request.FILES,instance=advertisement_details)
+        if editAdvertisement.is_valid():
+            editAdvertisement.save()
+            return HttpResponseRedirect(advertisement_details.get_absolute_url())
+    
+    context = {'advertisement_details':advertisement_details,
+    'editAdvertisement':editAdvertisement
+    }    
+    return render(request,'advertisement_edit.html',context)
+
+@login_required(login_url='loginPage')
 def myAdvertisements(request):
     advertisements = advertisement.objects.all().order_by('-id')
     context = {'advertisements':advertisements}
