@@ -43,6 +43,7 @@
             </p>
             {% if advertisement_details.owner == user %}
             <a class="btn btn-primary" href="{% url 'advertisementEdit' advertisement_details.pk %}" role="button">Edit</a>
+            <a class="btn btn-danger" href="{% url 'advertisementDelete' advertisement_details.pk %}" role="button">Delete</a>
             {% endif %}
         </div>
     </div>

@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect,HttpResponseRedirect
+from django.http import Http404
+from django.shortcuts import render,redirect,HttpResponseRedirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import advertisement,image,comment
 from .forms import advertisementForm, imageForm, commentForm
@@ -83,6 +84,13 @@ def advertisementEdit(request,pk):
     'editAdvertisement':editAdvertisement
     }    
     return render(request,'advertisement_edit.html',context)
+
+def advertisementDelete(request, pk):
+    advertisement_details = get_object_or_404(advertisement, id=pk)
+    if advertisement_details.owner != request.user:
+        raise Http404()
+    advertisement_details.delete()
+    return redirect('homePage')
 
 @login_required(login_url='loginPage')
 def myAdvertisements(request):
